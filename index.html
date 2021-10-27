@@ -1,10 +1,8 @@
 <HTML>
 <HEAD>
+	<!-- <link rel="shortcut icon" href="favicon.ico"> -->
+	<link rel="icon" type="image/x-icon" href="http://online-ide:81/images/favicon.ico?v=2">
 	<script type="text/javascript" src="clientSoc.js" ></script>
-	<!-- <script> 
-		document.getElementById("code").addEventListener("input", (event) => alert("Changed!"));
-
-	</script> -->
 	<script type="text/javascript" src="clientscript.js"></script>
 </HEAD>
 <!-- <TITLE>
@@ -13,12 +11,11 @@
 <BODY>
 	<form method="POST" action="submit">
 		<div>
-			<textarea id="code"  name="code" rows="30" cols="100" oninput="detectChange();"></textarea>
+			<textarea style="background: url(http://online-ide:81/images/codeEdit.png);
+    background-attachment: local;    background-repeat: no-repeat;    padding-left: 35px;   padding-top: 10px;    border-color:#ccc;" id="code"  name="code" rows="25" cols="90" oninput="detectChange();"></textarea>
 		</div>
 		<div>
-			<textarea id="user"  name="user" rows="10" cols="10">
-				
-			</textarea>
+			<textarea id="user"  name="user" rows="10" cols="10"></textarea>
 		</div>
 		<div>
 			<input type="submit" name="Submit">

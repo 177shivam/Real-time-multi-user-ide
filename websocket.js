@@ -29,20 +29,30 @@ ws.on('connection', function connection(con){
 			val.push(con);
 
 			urlSocketMap.set(message.url,val);
-			console.log(urlSocketMap);
+			// console.log(urlSocketMap);
 		}
 		else
 		{
 			let valuedata= mapData.get(message.url);
 			let newdata ="";
-			if(mapData.has(message.url))
+			
+
+			if(message.op == 1)
 			{
-				newdata=message.data + valuedata.substring(message.data.length-1,valuedata.length);
+				newdata = valuedata.slice(0,message.si) + valuedata.substring(message.si+1,valuedata.length);
 			}
 			else
 			{
-				newdata = message.data;
+				if(mapData.has(message.url))
+				{
+					newdata=message.data + valuedata.substring(message.data.length-1,valuedata.length);
+				}
+				else
+				{
+					newdata = message.data;
+				}
 			}
+
 			mapData.set(message.url,newdata);
 			console.log(mapData.get("erte"));
 
@@ -53,7 +63,7 @@ ws.on('connection', function connection(con){
 				if(cons[i] != con)
 				{
 					// console.log("con" + cons[i]);
-					cons[i].send(JSON.stringify({data:newdata}));
+					cons[i].send(JSON.stringify({data:newdata, rsi:message.si}));
 				}
 			}
 		}
@@ -65,6 +75,10 @@ ws.on('connection', function connection(con){
 		connected.splice(connected.indexOf(client_soc.length),1);
 		console.log("dscnt");
 	});
+
+	con.onerror = function(event) {
+	 	console.error("WebSocket error observed:", event);
+	};
 });
 
 return ws;

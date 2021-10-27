@@ -1,26 +1,63 @@
 
 var curpos=0;
+var txtLength=0;
+var el;
 
-function setCursor(){
+// {
+//   alert("Changed!");}
+//   );
+
+
+function setCursor(message){
   var input = document.getElementById("code");
-  input.selectionEnd=curpos;
+  if(message.rsi< curpos)
+  {
+    curpos= curpos+1;
+  }
+  else
+  {
+    input.selectionEnd=curpos;
+  }
+  txtLength = message.data.length;
   console.log(curpos);
   input.setSelectionRange(curpos,curpos);
+
+}
+
+function getpo()
+{
+  var input = document.getElementById("code");
+  var inputContent = input.value.length;
+  // You may want to focus the textbox in case it's not
+  // input.focus();
+  var result = getInputSelection(input);
+  console.log(result.start +" of "+inputContent);
+  curpos=result.start;
 }
 
 function detectChange() {
   // document.getElementById("code").addEventListener("input", (event) => 
   // alert("Changed!");
+  let insertType = 0;
   var input = document.getElementById("code");
   var inputContent = input.value.length;
   // You may want to focus the textbox in case it's not
-  input.focus();
+  // input.focus();
   var result = getInputSelection(input);
-  console.log(result.start);
+  console.log(result.start +" of "+inputContent);
   curpos=result.start;
+  if(txtLength > inputContent)
+  {
+    // console.log("back");
+    console.log("key " + inputContent);
+    insertType = 1;
+  }
+  txtLength = inputContent;
   // console.log(input.value);
   var codeString = input.value.substring(0, result.start);
-  sendData(codeString);
+  detectDeletionKey();
+  sendData(codeString,curpos, insertType);
+  keyDel=0;
   // var resultSpan = document.getElementById("result");
   
   // if(result.start == result.end){
@@ -91,3 +128,18 @@ function getInputSelection(el) {
 //   }
   
 // }, false);
+
+function detectDeletionKey(){
+    var input = document.getElementById('code');
+    input.onkeydown = function() {
+        var key = event.keyCode || event.charCode;
+        if( key == 8 || key == 46){
+            //backspace pressed
+            // alert('Empty');
+            keyDel=1;
+            return 1;
+        }
+           
+    };
+     return 0;
+}
