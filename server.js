@@ -8,7 +8,7 @@ const wbs = require('./websocket');
 const index = fs.readFileSync('./index.html','utf-8');
 const clientSoc = fs.readFileSync('./clientSoc.js', 'utf-8');
 const clientscript = fs.readFileSync('./clientscript.js', 'utf-8');
-const favicon = fs.readFileSync('./favicon.ico', 'utf-8');
+// const favicon = fs.readFileSync('./favicon.ico', 'utf-8');
 const bodyParser = require("body-parser");
 
 const {spawn}  =require('child_process');
