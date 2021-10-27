@@ -3,5 +3,7 @@ using namespace std;
 
 int main() 
 {
-   cout<<"done thiws";
+int x;
+cin>>x;
+   cout<<"done thiws\n\n\n\"\"" <<x;
 }

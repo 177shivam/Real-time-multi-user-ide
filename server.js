@@ -72,14 +72,15 @@ function exec(userInput,ress){
 		// console.log(dataRes);
 		// console.log(`stdout: ${data}`);
 		done =1;
-		ress.end("<HTML><HEAD></HEAD><BODY><b>Output:</b><br>"+dataRes+"</BODY></HTML>");
+		ress.end("Output:\n"+dataRes);
 		// return 1;
 	});
 
 	res.stderr.on('data', (data)=>{
 		console.log('$(data)');
 		done =1;
-		ress.end("<HTML><HEAD></HEAD><BODY><b>Output:</b><br>"+dataRes+"</BODY></HTML>");
+		// ress.end("<HTML><HEAD></HEAD><BODY><b>Output:</b><br>"+dataRes+"</BODY></HTML>");
+		ress.end("Output:\n"+dataRes);
 		// return 0;
 	});
 
@@ -168,9 +169,11 @@ app.post('/edit/submit',(req,res)=>{
 	}
 	else
 	{
-		state = "Compilation failed";
+		state = "Compilation failed:";
 		console.log("fail");
-		// res.end(dataRes + " \n"+state);
+		// res.end("<HTML><HEAD></HEAD><BODY><b>Output:</b><br></BODY></HTML>"+ dataRes);
+		res.end(state + " \n"+ dataRes);
+		console.log("fai" + dataRes);
 	}
 	console.log("REs" + dataRes);
 	// res.end(dataRes + " \n"+state);
