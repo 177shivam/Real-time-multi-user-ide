@@ -1,5 +1,5 @@
 var ip =location.hostname.replace(/^http/, 'ws')
-var url = "ws://"+ip+":5678";
+var url = "wss://"+ip+":5678";
 console.log(url);
 const wsc = new WebSocket(url);
 // ws.onmessage =function (event){
