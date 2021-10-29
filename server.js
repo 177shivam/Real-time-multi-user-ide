@@ -15,7 +15,7 @@ const {spawn}  =require('child_process');
 const exe = require("child_process").execSync;
 
 var dataRes= "";
-var hostIP ="127.0.0.1";
+var hostIP ="0.0.0.0";
 
 function genRandom()
 {
