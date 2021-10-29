@@ -41,6 +41,24 @@ ws.on('connection', function connection(con){
 			{
 				newdata = valuedata.slice(0,message.si) + valuedata.substring(message.si+1,valuedata.length);
 			}
+			else if(message.op == 2)
+			{
+				if(mapData.has(message.url))
+				{
+					if(message.se >= 0)
+					{
+						newdata=message.data + valuedata.substring(message.se,valuedata.length);
+					}
+					else
+					{
+						newdata=message.data + valuedata.substring(message.cbp,valuedata.length);	
+					}
+				}
+				else
+				{
+					newdata = message.data;
+				}
+			}
 			else
 			{
 				if(mapData.has(message.url))
@@ -63,7 +81,32 @@ ws.on('connection', function connection(con){
 				if(cons[i] != con)
 				{
 					// console.log("con" + cons[i]);
-					cons[i].send(JSON.stringify({data:newdata, rsi:message.si}));
+					if(message.op ==2)
+					{
+						var rsi;
+						if(message.cpb==-1 || (message.si == message.cbp))
+						{
+							rsi = message.si - message.se;
+						}
+						// else if(message.si == message.cbp)
+						// {
+
+						// 	rsi = message.si - message.se;
+						// }
+						else
+						{
+							rsi=message.si - message.cbp;
+						}
+						cons[i].send(JSON.stringify({data:newdata, rsi:message.cbp, rsidiff:rsi}));
+					}
+					else if(message.op ==1)
+					{
+						cons[i].send(JSON.stringify({data:newdata, rsi:message.si, rsidiff:-1}));
+					}
+					else
+					{
+						cons[i].send(JSON.stringify({data:newdata, rsi:message.si-1, rsidiff:1}));
+					}
 				}
 			}
 		}

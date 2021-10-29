@@ -1,21 +1,40 @@
 <HTML>
 <HEAD>
 	<!-- <link rel="shortcut icon" href="favicon.ico"> -->
-	<link rel="icon" type="image/x-icon" href="http://online-ide:81/images/favicon.ico?v=2">
+	<link rel="icon" type="image/x-icon" href="http://192.168.29.173:81/images/favicon.ico?v=2">
 	<script type="text/javascript" src="clientSoc.js" ></script>
 	<script type="text/javascript" src="clientscript.js"></script>
+	<!-- <script>
+		document.onselectionchange = () => {
+  console.log(document.getSelection());
+};
+	</script> -->
+	<!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+	<style>
+		/*@media only screen and (max-width: 768px) {
+		  textarea {
+		    font-size: 14px;
+		  }
+		}*/
+
+		@media only screen and (max-width: 700px)  {
+		  textarea {
+		    font-size: 6px;
+		  }
+		}
+	</style>
 </HEAD>
 <!-- <TITLE>
-	
+	onselect="selectionRange()"
 </TITLE> -->
 <BODY>
 	<form method="POST" action="submit">
 		<div>
-			<textarea style="background: url(http://online-ide:81/images/codeEdit.png);
-    background-attachment: local;    background-repeat: no-repeat;    padding-left: 35px;   padding-top: 10px;    border-color:#ccc;" id="code"  name="code" rows="25" cols="90" oninput="detectChange();"></textarea>
+			<textarea style="background: url(http://192.168.29.173:81/images/codeEdit.png);
+    background-attachment: local;   background-repeat: no-repeat;    padding-left: 35px;   padding-top: 10px;    border-color:#ccc;" id="code"  name="code" rows="25" cols="90" placeholder="Enter your code here" oninput="detectChange();" onselect="selectionRange()" onpaste="selectionRange();"></textarea>
 		</div>
 		<div>
-			<textarea id="user"  name="user" rows="10" cols="10"></textarea>
+			<textarea id="user"  name="user" rows="10" cols="15" placeholder="Enter stdin or input here"></textarea>
 		</div>
 		<div>
 			<input type="submit" name="Submit">

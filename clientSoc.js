@@ -13,13 +13,13 @@ wsc.onopen = function (event) {
   wsc.send(JSON.stringify({type: 1, url:window.location.pathname.split('/')[2]}));
 };
 
-function sendData(data,curpos, insertType){
+function sendData(data,curpos, insertType, selectEnd,cursorBeforePaste){
 	// console.log("send");
 	// wsc.addEventListener('open', function (event) {
 	//     wsc.send(data);
 	// });
 	// console.log();
-	wsc.send(JSON.stringify({type:2, si:curpos, op:insertType, data:data,url:window.location.pathname.split('/')[2] }));
+	wsc.send(JSON.stringify({type:2, si:curpos, op:insertType, se:selectEnd, cbp:cursorBeforePaste, data:data,url:window.location.pathname.split('/')[2] }));
 }
 
 

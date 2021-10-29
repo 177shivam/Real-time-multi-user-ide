@@ -2,17 +2,18 @@
 var curpos=0;
 var txtLength=0;
 var el;
+var selectBegin=-1;
+var selectEnd=-1;
+var lengthBeforeSelection;
 
-// {
-//   alert("Changed!");}
-//   );
-
+// insertType{insert=0,back=1,multinsert=2,multidel=3}
 
 function setCursor(message){
   var input = document.getElementById("code");
+  // console.log("curpos "+curpos);
   if(message.rsi< curpos)
   {
-    curpos= curpos+1;
+    curpos= curpos+message.rsidiff;
   }
   else
   {
@@ -31,8 +32,40 @@ function getpo()
   // You may want to focus the textbox in case it's not
   // input.focus();
   var result = getInputSelection(input);
-  console.log(result.start +" of "+inputContent);
+  // console.log(result.start +" of "+inputContent);
   curpos=result.start;
+}
+
+function selectionRange(){
+  var input = document.getElementById("code");
+  var inputContent = input.value.length;
+  var result = getInputSelection(input);
+  // console.log(result.start +" select of "+inputContent);
+  curpos=result.start;
+  if(txtLength > inputContent)
+  {
+    console.log("key " + inputContent);
+    insertType = 1;
+  }
+  txtLength = inputContent;
+  // console.log(input.value);
+  var codeString = input.value.substring(0, result.start);
+  // sendData(codeString,curpos, insertType);
+  keyDel=0;
+  
+  if(result.start == result.end){
+    // console.log("No selected. cursor is " + result.start +" of " +inputContent);
+    selectBegin=-2;     //only ctrl v
+     selectEnd=-2;
+     lengthBeforeSelection = inputContent;
+  }else{
+     console.log("selected ("+result.start+" to "+ result.end +") from a total of " + inputContent);
+     selectBegin=result.start;  // ctrl  v with selection
+     selectEnd=result.end;
+     lengthBeforeSelection = inputContent;
+  }
+  // console.log("out " +input.value.substring(result.start,result.end));    //char selected
+  
 }
 
 function detectChange() {
@@ -41,30 +74,44 @@ function detectChange() {
   let insertType = 0;
   var input = document.getElementById("code");
   var inputContent = input.value.length;
+  var lengthAfterSelection;
+  var cursorBeforePaste = -1;
   // You may want to focus the textbox in case it's not
   // input.focus();
   var result = getInputSelection(input);
-  console.log(result.start +" of "+inputContent);
+  // console.log(result.start +" of "+inputContent);
   curpos=result.start;
   if(txtLength > inputContent)
   {
     // console.log("back");
-    console.log("key " + inputContent);
+    // console.log("key " + inputContent);
     insertType = 1;
+  }
+  if(selectBegin >= 0 || selectBegin == -2)
+  {
+    insertType = 2;
+    lengthAfterSelection = selectEnd - selectBegin+ inputContent-  lengthBeforeSelection;
+    // console.log("paste legth " + lengthAfterSelection);
+    // console.log("sel "+ selectBegin + "  "+selectEnd);
+    cursorBeforePaste = result.start - lengthAfterSelection;
   }
   txtLength = inputContent;
   // console.log(input.value);
   var codeString = input.value.substring(0, result.start);
-  detectDeletionKey();
-  sendData(codeString,curpos, insertType);
-  keyDel=0;
-  // var resultSpan = document.getElementById("result");
+  // detectDeletionKey();
   
-  // if(result.start == result.end){
-  //   resultSpan.innerHTML = "No text selected. Position of cursor is " + result.start +" of " +inputContent;
-  // }else{
-  //   resultSpan.innerHTML = "You've selected text ("+result.start+" to "+ result.end +") from a total length of " + inputContent;
-  // }
+  if(result.start == result.end){
+    console.log("No text selected. Position of cursor is " + result.start +" of " +inputContent);
+    // selectBegin=-1;
+    //  selectEnd=-1;
+  }else{
+    // resultSpan.innerHTML =
+     console.log("You've selected text ("+result.start+" to "+ result.end +") from a total length of " + inputContent);
+  }
+
+  sendData(codeString,curpos, insertType,selectEnd,cursorBeforePaste);
+  selectBegin=-1;
+  selectEnd=-1;
 }
 
 function getInputSelection(el) {
@@ -129,17 +176,52 @@ function getInputSelection(el) {
   
 // }, false);
 
-function detectDeletionKey(){
-    var input = document.getElementById('code');
-    input.onkeydown = function() {
-        var key = event.keyCode || event.charCode;
-        if( key == 8 || key == 46){
-            //backspace pressed
-            // alert('Empty');
-            keyDel=1;
-            return 1;
-        }
+// function detectDeletionKey(){
+//     var input = document.getElementById('code');
+//     input.onkeydown = function() {
+//         var key = event.keyCode || event.charCode;
+//         if( key == 8 || key == 46){
+//             //backspace pressed
+//             // alert('Empty');
+//             keyDel=1;
+//             return 1;
+//         }
            
-    };
-     return 0;
-}
+//     };
+//      return 0;
+// }
+
+// function getTextAreaSelection(textarea) {
+//     var start = textarea.selectionStart, end = textarea.selectionEnd;
+//     return {
+//         start: start,
+//         end: end,
+//         length: end - start,
+//         text: textarea.value.slice(start, end)
+//     };
+// }
+
+// function detectPaste(textarea, callback) {
+//     textarea.paste = function() {
+//         var sel = getTextAreaSelection(textarea);
+//         var initialLength = textarea.value.length;
+//         window.setTimeout(function() {
+//             var val = textarea.value;
+//             var pastedTextLength = val.length - (initialLength - sel.length);
+//             var end = sel.start + pastedTextLength;
+//             callback({
+//                 start: sel.start,
+//                 end: end,
+//                 length: pastedTextLength,
+//                 text: val.slice(sel.start, end)
+//             });
+//         }, 1);
+//     };
+// }
+
+// var textarea = document.getElementById("code");
+// detectPaste(textarea, function(pasteInfo) {
+//     alert(pasteInfo.text);
+//     // pasteInfo also has properties for the start and end character
+//     // index and length of the pasted text
+// });
