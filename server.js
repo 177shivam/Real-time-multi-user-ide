@@ -187,7 +187,7 @@ app.get('/edit/*',(req,res)=>{
 	// console.log("wb")
 });
 
-var server=app.listen(81,hostIP,()=>{
+var server=app.listen(8100,hostIP,()=>{
 	console.log('listening');
 });
 
