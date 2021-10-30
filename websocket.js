@@ -27,11 +27,21 @@ ws.on('connection', function connection(con){
 	connected.push(con);
 	console.log("connected");
 	// console.log(con);
+	// con.isAlive = false;
 
 
-	// con.send();
+	con.on('pong',function pong(pon){
+		// connected.splice(connected.indexOf(client_soc.length),1);
+		console.log("client_soc" +pon);
+	});
+
 
 	con.on('message', function incoming(message){
+		// console.log('mess %s',message);
+		if(message == '')
+		{
+			return;
+		}
 		message=JSON.parse(message);
 		console.log('mes %s',message);
 
@@ -143,7 +153,7 @@ ws.on('connection', function connection(con){
 });
 
 server.listen(process.env.PORT || 8100,function(){
-	console.log('listening on ')});
+	console.log('listening ')});
 
 
 // return ws;

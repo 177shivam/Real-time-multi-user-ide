@@ -42,10 +42,11 @@ wsc.onerror = function(event) {
 function noop() {}
 
 const ping = function() {
-  wsc.onping= function (noop) {noop;}
-  // console.log("ping");
+  // wsc.onping= function (noop) {noop;}
+  wsc.send('');
+  console.log("ping");
 }
 
-setInterval(ping, 4000);
+setInterval(ping, 30000);
 // wsc.set_keepalive_interval(10);
 	
