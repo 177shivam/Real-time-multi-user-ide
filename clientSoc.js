@@ -1,5 +1,5 @@
-var ip =location.hostname.replace(/^http/, 'ws')
-var url = "wss://"+ip+":5678";
+var ip =location.origin.replace(/^http/, 'ws')
+var url = ip; //+":5678";
 console.log(url);
 const wsc = new WebSocket(url);
 // ws.onmessage =function (event){
@@ -39,6 +39,3 @@ wsc.onerror = function(event) {
   console.error("WebSocket cl error observed:", event);
 };
 	
-
-
-// wsc.send('hello ji');

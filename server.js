@@ -4,7 +4,7 @@ var crypto = require('crypto');
 const {Server } = require('http');
 var fs= require('fs');
 const util = require('./util');
-const wbs = require('./websocket');
+// const wbs = require('./websocket');
 const index = fs.readFileSync('./index.html','utf-8');
 const clientSoc = fs.readFileSync('./clientSoc.js', 'utf-8');
 const clientscript = fs.readFileSync('./clientscript.js', 'utf-8');
@@ -187,8 +187,9 @@ app.get('/edit/*',(req,res)=>{
 	// console.log("wb")
 });
 
-var server=app.listen(process.env.PORT || 8100,hostIP,()=>{
-	console.log('listening');
-});
+// var server=app.listen(process.env.PORT || 8100,hostIP,()=>{
+// 	console.log('listening');
+// });
+module.exports = app;
 
-wbs;
+// wbs;

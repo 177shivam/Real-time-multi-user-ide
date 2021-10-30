@@ -1,9 +1,27 @@
 const wbskt = require('ws');
+// var http = require('http');
+// var ap = require('./server.js');
 let connected =[];
 var urlSocketMap =new Map();
 var mapData = new Map();
 
-const ws = new wbskt.Server({ port: 5678 });
+
+
+
+// var server = http.createServer(ap.app);
+// server.listen(8100,"0.0.0.0",()=>{
+// 	console.log('listening')});
+
+// console.log("http server listening on %d", 8100);
+
+let wss = wbskt.Server;
+let server = require('http').createServer();
+let app= require('./server.js');
+let ws = new wss({ server: server });
+server.on('request', app);
+
+
+// const ws = new wbskt.Server({ port: 5678 });
 
 ws.on('connection', function connection(con){
 	connected.push(con);
@@ -124,4 +142,8 @@ ws.on('connection', function connection(con){
 	};
 });
 
-return ws;
+server.listen(process.env.PORT || 8100,function(){
+	console.log('listening on ')});
+
+
+// return ws;
