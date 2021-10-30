@@ -1,6 +1,6 @@
 var ip =location.origin.replace(/^http/, 'ws')
 var url = ip; //+":5678";
-console.log(url);
+// console.log(url);
 const wsc = new WebSocket(url);
 // ws.onmessage =function (event){
 // 	console.log(event.data);
@@ -37,13 +37,15 @@ wsc.onmessage = function (event) {
 
 wsc.onerror = function(event) {
   console.error("WebSocket cl error observed:", event);
-};
+}
 
 function noop() {}
 
 const ping = function() {
-  wsc.ping(noop);
+  wsc.onping= function (noop) {noop;}
+  // console.log("ping");
 }
 
-setInterval(ping, 40000);
+setInterval(ping, 4000);
+// wsc.set_keepalive_interval(10);
 	
