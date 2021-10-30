@@ -2,7 +2,7 @@
   "name": "brow",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "websocket.js",
   "dependencies": {
     "express": "^4.17.1",
     "ws": "^8.2.3"
@@ -10,7 +10,7 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node websocket.js"
   },
   "author": "",
   "license": "ISC"
