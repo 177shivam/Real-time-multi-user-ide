@@ -18,9 +18,11 @@ npm init
 ```
 Now run the project using command
 ```
-sudo npm start
+npm start
 ```
 The project will run successfully on port 81 and you can access the webpage using the ip which you configured above.
-Ex- http://192.168.29.173:81/
+Ex- http://192.168.29.173:8100/
 
 
+## Deploy
+This project is deployed on heroku with name [oneide](https://oneide.herokuapp.com/). On visiting oneide heroku url you will be redirected to other url like https://oneide.herokuapp.com/edit/erfgth , this url can be used or shared with other user so that the user having this url can edit the code in realtime.
