@@ -38,4 +38,12 @@ wsc.onmessage = function (event) {
 wsc.onerror = function(event) {
   console.error("WebSocket cl error observed:", event);
 };
+
+function noop() {}
+
+const ping = function() {
+  wsc.ping(noop);
+}
+
+setInterval(ping, 40000);
 	
