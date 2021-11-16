@@ -30,7 +30,7 @@ function compile()
 	{
 		// var res=spawn('g++',[' ctes.cpp']);
 		// Timeout()
-		var res=exe('g++ ctes.cpp');
+		var res=exe('gcc ctes.cpp -lstdc++');
 		// res.stdout.pipe('data', (data)=>{
 		// 	console.log(' $(data)');
 		// 	return 1;
